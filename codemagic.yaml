@@ -12,7 +12,7 @@ workflows:
         - certificate_credentials
       vars:
         BUNDLE_ID: "com.chickiroad.app"
-        XCODE_PROJECT: "iosApp/iosApp.xcodeproj"
+        XCODE_PROJECT: "iosApp.xcodeproj"
         XCODE_SCHEME: "iosApp"
         APP_ID: 6748528162
     scripts:
@@ -39,7 +39,9 @@ workflows:
           export TARGET_BUILD_DIR="$CM_BUILD_DIR/iosApp/build/Release-iphoneos"
           export FRAMEWORKS_FOLDER_PATH="$TARGET_BUILD_DIR/ComposeApp.framework"
           export BUILT_PRODUCTS_DIR="$TARGET_BUILD_DIR"
+          
           mkdir -p "$TARGET_BUILD_DIR"
+          
           ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode -x syncComposeResourcesForIos
       - name: Build iOS
         script: |
