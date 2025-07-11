@@ -28,3 +28,4 @@ workflows:
     publishing:
       app_store_connect:
         auth: integration
+        apple_id: "6748528162"
