@@ -31,10 +31,11 @@ workflows:
           xcode-project use-profiles
       - name: Build KMP shared framework
         script: |
+          export CONFIGURATION="Release"
           export PLATFORM_NAME="iphoneos"
+          export SDK_NAME="iphoneos"
           export ARCHS="arm64"
           export VALID_ARCHS="arm64"
-          export SDK_NAME="iphoneos"
           ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode
       - name: Build iOS
         script: |
