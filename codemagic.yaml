@@ -36,7 +36,7 @@ workflows:
           export SDK_NAME="iphoneos"
           export ARCHS="arm64"
           export VALID_ARCHS="arm64"
-          ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode
+          ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode -x syncComposeResourcesForIos
       - name: Build iOS
         script: |
           cd $CM_BUILD_DIR/iosApp
