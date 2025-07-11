@@ -9,6 +9,7 @@ workflows:
       java: 17
       groups:
         - app_store_credentials
+        - certificate_credentials
       vars:
         BUNDLE_ID: "com.chickiroad.app"
         XCODE_PROJECT: "iosApp/iosApp.xcodeproj"
@@ -20,7 +21,7 @@ workflows:
           keychain initialize
       - name: Fetch signing files
         script: |
-          app-store-connect fetch-signing-files $BUNDLE_ID --type IOS_APP_STORE
+          app-store-connect fetch-signing-files $BUNDLE_ID --type IOS_APP_STORE --create
       - name: Add certificates
         script: |
           keychain add-certificates
@@ -32,7 +33,7 @@ workflows:
           ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode
       - name: Build iOS
         script: |
-          xcode-project build-ipa --workspace "$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
+          xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME"
     artifacts:
       - build/ios/ipa/*.ipa
     publishing:
