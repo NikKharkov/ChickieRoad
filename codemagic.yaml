@@ -14,9 +14,7 @@ workflows:
         BUNDLE_ID: "com.chickiroad.app"
         XCODE_PROJECT: "iosApp/iosApp.xcodeproj"
         XCODE_SCHEME: "iosApp"
-        XCODE_WORKSPACE: "iosApp/iosApp.xcworkspace"
         APP_ID: 6748528162
-      xcode: latest
     scripts:
       - name: Set up keychain
         script: |
@@ -27,10 +25,6 @@ workflows:
       - name: Add certificates
         script: |
           keychain add-certificates
-      - name: Cocoapods installation
-        script: |
-          cd $CM_BUILD_DIR/iosApp
-          pod install
       - name: Set up code signing settings
         script: |
           cd $CM_BUILD_DIR/iosApp
@@ -45,7 +39,7 @@ workflows:
       - name: Build iOS
         script: |
           cd $CM_BUILD_DIR/iosApp
-          xcode-project build-ipa --workspace "$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
+          xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME"
     artifacts:
       - iosApp/build/ios/ipa/*.ipa
     publishing:
