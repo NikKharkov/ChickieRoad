@@ -1,0 +1,30 @@
+workflows:
+  ios-workflow:
+    name: iOS Build
+    max_build_duration: 120
+    instance_type: mac_mini_m1
+    integrations:
+      app_store_connect: your_integration_name
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.chickiroad.app
+      vars:
+        BUNDLE_ID: "com.chickiroad.app"
+        XCODE_PROJECT: "iosApp/iosApp.xcodeproj"
+        XCODE_SCHEME: "iosApp"
+    scripts:
+      - name: Build KMP shared framework
+        script: |
+          ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode
+      - name: Build iOS
+        script: |
+          xcodebuild -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -archivePath build/ios.xcarchive \
+            clean archive
+    artifacts:
+      - build/ios.xcarchive
+    publishing:
+      app_store_connect:
+        auth: integration
