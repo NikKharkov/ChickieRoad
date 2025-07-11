@@ -10,7 +10,7 @@ workflows:
         distribution_type: app_store
         bundle_identifier: com.chickiroad.app
       vars:
-        JAVA_HOME: /opt/homebrew/opt/openjdk@17
+        java: 17
         BUNDLE_ID: "com.chickiroad.app"
         APP_ID: 6748528162
         XCODE_PROJECT: "iosApp/iosApp.xcodeproj"
